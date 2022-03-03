@@ -42,6 +42,13 @@ function LoadStatistics(pl)
     Stat("ZStats.DamageToHumans")
 end
 
+hook.Add("PlayerSay", "nStatsZS.PlayerSay", function(a, b)
+    local c = string.lower(b)
+    if c == "!stats" or c == "/stats" then
+        a:SendLua("nStatsZSClient()")
+    end
+end)
+
 
 ------------------
 -- SAVING STATS --
