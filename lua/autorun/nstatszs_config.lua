@@ -1,0 +1,1 @@
+nStatsZS = nStatsZS or {} -- If you delete this, script go breaky breaky
