@@ -16,7 +16,7 @@ function nStatsZSClient(plyr)
 
     local frame = vgui.Create("DFrame")
     frame:SetSize(500 * s, 500 * s)
-    frame:SetTitle("nStats ZS | Personal Statistics - "..nStats.ZS.NoxZS and "NOX Build" or "OLD Build")
+    frame:SetTitle("nStats ZS | Personal Statistics - "..(nStats.ZS.NoxZS and "NOX Build" or "OLD Build"))
     frame:SetDraggable(false)
     frame:Center()
     frame:MakePopup()
@@ -30,9 +30,12 @@ function nStatsZSClient(plyr)
     local panel2 = vgui.Create( "DPanel", sheet )
     sheet:AddSheet( "Zombie Stats", panel2, "icon16/user_red.png" )
 
+    local panel3
     if nStats.ZS.NoxZS then
-        local panel3 = vgui.Create( "DPanel", sheet )
+        panel3 = vgui.Create( "DPanel", sheet )
         sheet:AddSheet( "ZS Stats", panel3, "icon16/user_orange.png" )
+    else
+        panel3 = nil
     end
 
     local panel4 = vgui.Create( "DPanel", sheet )
@@ -46,9 +49,7 @@ function nStatsZSClient(plyr)
 
     local list1 = vgui.Create("DPanelList", panel1) list1:EnableVerticalScrollbar() list1:EnableHorizontal(false) list1:SetSize(wide - 12, tall - 12) list1:SetPos(0, 0) list1:SetPadding(8) list1:SetSpacing(16)
     local list2 = vgui.Create("DPanelList", panel2) list2:EnableVerticalScrollbar() list2:EnableHorizontal(false) list2:SetSize(wide - 12, tall - 12) list2:SetPos(0, 0) list2:SetPadding(8) list2:SetSpacing(16)
-    if nStats.ZS.NoxZS then
-        local list3 = vgui.Create("DPanelList", panel3) list3:EnableVerticalScrollbar() list3:EnableHorizontal(false) list3:SetSize(wide - 12, tall - 12) list3:SetPos(0, 0) list3:SetPadding(8) list3:SetSpacing(16)
-    end
+    local list3 = vgui.Create("DPanelList", panel3) list3:EnableVerticalScrollbar() list3:EnableHorizontal(false) list3:SetSize(wide - 12, tall - 12) list3:SetPos(0, 0) list3:SetPadding(8) list3:SetSpacing(16)
     local list4 = vgui.Create("DPanelList", panel4) list4:EnableVerticalScrollbar() list4:EnableHorizontal(false) list4:SetSize(wide - 12, tall - 70) list4:SetPos(0, 0)
     -----------------
     -- HUMAN STATS --
@@ -114,7 +115,7 @@ function nStatsZSClient(plyr)
         button:SizeToContents()
         button:Dock(TOP)
         button.DoClick = function()
-            Derma_Query("View "..v:Name().."'s personal statistics?", "", "Yes", function() frame:Close() nStatsClient(v) end, "No")
+            Derma_Query("View "..v:Name().."'s personal statistics?", "", "Yes", function() frame:Close() nStatsZSClient(v) end, "No")
         end
         list4:AddItem(button)
     end
