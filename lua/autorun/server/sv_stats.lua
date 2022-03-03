@@ -70,9 +70,12 @@ hook.Add("HumanKilledZombie", "Stats.HumanKilledZombie", function(pl, attacker, 
     end
 
 	attacker:UpdateStat("HStats.ZombiesKilled")
-    
-    if pl:WasHitInHead() then
-        attacker:UpdateStat("HStats.ZombiesKilledHeadshot")
+
+    -- Temp fix
+    if nStats.ZS.NoxZS then
+        if pl:WasHitInHead() then
+            attacker:UpdateStat("HStats.ZombiesKilledHeadshot")
+        end
     end
 end)
 
