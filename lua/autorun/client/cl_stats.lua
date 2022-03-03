@@ -1,4 +1,4 @@
-function nStatsClient(plyr)
+function nStatsZSClient(plyr)
     local s = BetterScreenScale()
 
     -- fix nil values if the plyr argument is missing
@@ -7,12 +7,16 @@ function nStatsClient(plyr)
     elseif not plyr:IsPlayer() then
         plyr = LocalPlayer()
     end
+
+    -- The code above was actually used to fix a bug if there was no player argument.
+    -- It was used to fix the nil problem with the Stats being in the ZS f1 menu.
+    -- Obviously it isn't needed now, but we will keep it in anyway.
     
-    printClear("[nStats] Currently viewing: "..tostring(plyr:Name()))
+    printClear("[nStats ZS] Currently viewing: "..tostring(plyr:Name()))
 
     local frame = vgui.Create("DFrame")
     frame:SetSize(500 * s, 500 * s)
-    frame:SetTitle("nStats-ZS | Personal Statistics")
+    frame:SetTitle("nStats ZS | Personal Statistics")
     frame:SetDraggable(false)
     frame:Center()
     frame:MakePopup()
@@ -79,11 +83,13 @@ function nStatsClient(plyr)
     check:SizeToContents()
     list3:AddItem(check)
 
-    --[[local check = vgui.Create("DLabel", frame)
-    check:SetText("Remort: "..string.CommaSeparate(plyr:GetZSRemortLevel()))
-    check:SetFont("ZSHUDFontSmaller")
-    check:SizeToContents()
-    list3:AddItem(check)]]
+    if not nStatsZS.OldZS then
+        local check = vgui.Create("DLabel", frame)
+        check:SetText("Remort: "..string.CommaSeparate(plyr:GetZSRemortLevel()))
+        check:SetFont("ZSHUDFontSmaller")
+        check:SizeToContents()
+        list3:AddItem(check)
+    end
 
     local check = vgui.Create("DLabel", frame)
     check:SetText("XP: "..string.CommaSeparate(plyr:GetZSXP()).." / "..string.CommaSeparate(GAMEMODE:XPForLevel(plyr:GetZSLevel() + 1)))
@@ -111,5 +117,5 @@ end
 net.Receive("ShowStatsRequest", function()
     local plyr = net.ReadEntity()
     
-    nStatsClient(plyr)
+    nStatsZSClient(plyr)
 end)
