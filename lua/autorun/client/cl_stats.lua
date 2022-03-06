@@ -27,6 +27,15 @@ function nStatsZSClient(plyr)
     
     printClear("[nStats ZS] Currently viewing: "..tostring(plyr:Name()))
 
+    local function nightrally(parent)
+        local check = vgui.Create("DLabel", frame)
+        check:SetText(plyr:Name().."'s Stats ")
+        check:SetFont("ZSHUDFontSmall")
+        check:SizeToContents()
+        check:SetTextColor(COLOR_CYAN)
+        parent:AddItem(check)
+    end
+
     local frame = vgui.Create("DFrame")
     frame:SetSize(500 * s, 500 * s)
     frame:SetTitle("nStats ZS | Personal Statistics - "..(nStatsZS.NoxZS and "NOX Build" or "OLD Build"))
@@ -69,8 +78,15 @@ function nStatsZSClient(plyr)
     -- HUMAN STATS --
     -----------------
 
-    local function HumanStat(name, id) local check = vgui.Create("DLabel", frame) check:SetText(name..": "..tostring(string.CommaSeparate(math.floor(plyr:GetNWInt(id))))) check:SetFont("ZSHUDFontSmaller") check:SizeToContents() list1:AddItem(check) end
-    local check = vgui.Create("DLabel", frame) check:SetText(plyr:Name().."'s Stats ") check:SetFont("ZSHUDFontSmall") check:SizeToContents() check:SetTextColor(COLOR_CYAN) list1:AddItem(check)
+    local function HumanStat(name, id)
+        local check = vgui.Create("DLabel", frame)
+        check:SetText(name..": "..tostring(string.CommaSeparate(math.floor(plyr:GetNWInt(id)))))
+        check:SetFont("ZSHUDFontSmaller")
+        check:SizeToContents()
+        list1:AddItem(check)
+    end
+
+    nightrally(list1)
 
     HumanStat("Zombies Killed", "HStats.ZombiesKilled")
     HumanStat("Zombies Killed Assists", "HStats.ZombiesKilledAssists")
@@ -85,8 +101,15 @@ function nStatsZSClient(plyr)
     -- ZOMBIE STATS --
     ------------------
 
-    local function ZombieStat(name, id) local check = vgui.Create("DLabel", frame) check:SetText(name..": "..tostring(string.CommaSeparate(math.floor(plyr:GetNWInt(id))))) check:SetFont("ZSHUDFontSmaller") check:SizeToContents() list2:AddItem(check) end
-    local check = vgui.Create("DLabel", frame) check:SetText(plyr:Name().."'s Stats ") check:SetFont("ZSHUDFontSmall") check:SizeToContents() check:SetTextColor(COLOR_CYAN) list2:AddItem(check)
+    local function ZombieStat(name, id)
+        local check = vgui.Create("DLabel", frame)
+        check:SetText(name..": "..tostring(string.CommaSeparate(math.floor(plyr:GetNWInt(id)))))
+        check:SetFont("ZSHUDFontSmaller")
+        check:SizeToContents()
+        list2:AddItem(check)
+    end
+    
+    nightrally(list2)
 
     ZombieStat("Humans Killed", "ZStats.HumansKilled")
     ZombieStat("Barricade Damage", "ZStats.BarricadeDamage")
@@ -99,11 +122,7 @@ function nStatsZSClient(plyr)
     if nStatsZS.NoxZS then
         local check = vgui.Create("DLabel", frame) check:SetText(plyr:Name().."'s Stats ") check:SetFont("ZSHUDFontSmall") check:SizeToContents() check:SetTextColor(COLOR_CYAN) list3:AddItem(check)
 
-        local check = vgui.Create("DLabel", frame)
-        check:SetText("Level: "..plyr:GetZSLevel())
-        check:SetFont("ZSHUDFontSmaller")
-        check:SizeToContents()
-        list3:AddItem(check)
+        nightrally(list3)
 
         local check = vgui.Create("DLabel", frame)
         check:SetText("Remort: "..string.CommaSeparate(plyr:GetZSRemortLevel()))
@@ -133,6 +152,21 @@ function nStatsZSClient(plyr)
         end
         list4:AddItem(button)
     end
+
+    --------------
+    -- SETTINGS --
+    --------------
+
+    local function CheckBox(text, cvar)
+        local check = panel5:Add( "DCheckBoxLabel" )
+        check:SetText(text)
+        check:SetFont(checkfont)
+        check:SetConVar(cvar)
+        check:SizeToContents()
+        list5:AddItem(check)
+    end
+
+    CheckBox("Enable kill counter", "nstatszs_killcounter")
 end
 
 net.Receive("ShowStatsRequest", function()
