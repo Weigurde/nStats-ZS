@@ -1,3 +1,15 @@
+local settings = settings or {}
+
+settings.DisableBorder = CreateClientConVar("specshop_disableborder", "0", true, false):GetBool()
+cvars.AddChangeCallback("specshop_disableborder", function(cvar, oldvalue, newvalue)
+	SPECSHOP.DisableBorder = tonumber(newvalue) == 1
+end)
+
+settings.ShopColor = Color(CreateClientConVar("specshop_color_r", "30", true, false):GetInt(), CreateClientConVar("specshop_color_g", "30", true, false):GetInt(), CreateClientConVar("specshop_color_b", "30", true, false):GetInt())
+cvars.AddChangeCallback("specshop_color_r", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.r = tonumber(newvalue) or 255 end)
+cvars.AddChangeCallback("specshop_color_g", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.g = tonumber(newvalue) or 255 end)
+cvars.AddChangeCallback("specshop_color_b", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.b = tonumber(newvalue) or 255 end)
+
 function nStatsZSClient(plyr)
     local s = BetterScreenScale()
 
@@ -42,7 +54,7 @@ function nStatsZSClient(plyr)
     sheet:AddSheet( "Player List", panel4, "icon16/group.png" )
 
     local panel5 = vgui.Create( "DPanel", sheet )
-    sheet:AddSheet( "Admin Panel", panel5, "icon16/shield.png" )
+    sheet:AddSheet( "Settings", panel5, "icon16/cog.png" )
 
     local wide = frame:GetWide()
     local tall = frame:GetTall()
@@ -51,6 +63,7 @@ function nStatsZSClient(plyr)
     local list2 = vgui.Create("DPanelList", panel2) list2:EnableVerticalScrollbar() list2:EnableHorizontal(false) list2:SetSize(wide - 12, tall - 12) list2:SetPos(0, 0) list2:SetPadding(8) list2:SetSpacing(16)
     local list3 = vgui.Create("DPanelList", panel3) list3:EnableVerticalScrollbar() list3:EnableHorizontal(false) list3:SetSize(wide - 12, tall - 12) list3:SetPos(0, 0) list3:SetPadding(8) list3:SetSpacing(16)
     local list4 = vgui.Create("DPanelList", panel4) list4:EnableVerticalScrollbar() list4:EnableHorizontal(false) list4:SetSize(wide - 12, tall - 70) list4:SetPos(0, 0)
+    local list5 = vgui.Create("DPanelList", panel5) list5:EnableVerticalScrollbar() list5:EnableHorizontal(false) list5:SetSize(wide - 12, tall - 12) list5:SetPos(0, 0) list5:SetPadding(8) list5:SetSpacing(16)
     -----------------
     -- HUMAN STATS --
     -----------------
