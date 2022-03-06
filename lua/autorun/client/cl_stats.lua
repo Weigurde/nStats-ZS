@@ -74,6 +74,7 @@ function nStatsZSClient(plyr)
     local list3 = vgui.Create("DPanelList", panel3) list3:EnableVerticalScrollbar() list3:EnableHorizontal(false) list3:SetSize(wide - 12, tall - 12) list3:SetPos(0, 0) list3:SetPadding(8) list3:SetSpacing(16)
     local list4 = vgui.Create("DPanelList", panel4) list4:EnableVerticalScrollbar() list4:EnableHorizontal(false) list4:SetSize(wide - 12, tall - 70) list4:SetPos(0, 0)
     local list5 = vgui.Create("DPanelList", panel5) list5:EnableVerticalScrollbar() list5:EnableHorizontal(false) list5:SetSize(wide - 12, tall - 12) list5:SetPos(0, 0) list5:SetPadding(8) list5:SetSpacing(16)
+    
     -----------------
     -- HUMAN STATS --
     -----------------
