@@ -1,14 +1,15 @@
-local settings = settings or {}
+local uwu = uwu or {}
 
-settings.DisableBorder = CreateClientConVar("specshop_disableborder", "0", true, false):GetBool()
-cvars.AddChangeCallback("specshop_disableborder", function(cvar, oldvalue, newvalue)
-	SPECSHOP.DisableBorder = tonumber(newvalue) == 1
+uwu.KillCounter = CreateClientConVar("nstatszs_killcounter", "0", true, false):GetBool()
+cvars.AddChangeCallback("nstatszs_killcounter", function(cvar, oldvalue, newvalue)
+	uwu.KillCounter = tonumber(newvalue) == 1
 end)
 
-settings.ShopColor = Color(CreateClientConVar("specshop_color_r", "30", true, false):GetInt(), CreateClientConVar("specshop_color_g", "30", true, false):GetInt(), CreateClientConVar("specshop_color_b", "30", true, false):GetInt())
+-- Colors, NOT NEEDED RN!
+--[[uwu.ShopColor = Color(CreateClientConVar("specshop_color_r", "30", true, false):GetInt(), CreateClientConVar("specshop_color_g", "30", true, false):GetInt(), CreateClientConVar("specshop_color_b", "30", true, false):GetInt())
 cvars.AddChangeCallback("specshop_color_r", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.r = tonumber(newvalue) or 255 end)
 cvars.AddChangeCallback("specshop_color_g", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.g = tonumber(newvalue) or 255 end)
-cvars.AddChangeCallback("specshop_color_b", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.b = tonumber(newvalue) or 255 end)
+cvars.AddChangeCallback("specshop_color_b", function(cvar, oldvalue, newvalue) SPECSHOP.ShopColor.b = tonumber(newvalue) or 255 end)]]
 
 function nStatsZSClient(plyr)
     local s = BetterScreenScale()
@@ -28,7 +29,7 @@ function nStatsZSClient(plyr)
 
     local frame = vgui.Create("DFrame")
     frame:SetSize(500 * s, 500 * s)
-    frame:SetTitle("nStats ZS | Personal Statistics - "..(nStats.ZS.NoxZS and "NOX Build" or "OLD Build"))
+    frame:SetTitle("nStats ZS | Personal Statistics - "..(nStatsZS.NoxZS and "NOX Build" or "OLD Build"))
     frame:SetDraggable(false)
     frame:Center()
     frame:MakePopup()
@@ -43,7 +44,7 @@ function nStatsZSClient(plyr)
     sheet:AddSheet( "Zombie Stats", panel2, "icon16/user_red.png" )
 
     local panel3
-    if nStats.ZS.NoxZS then
+    if nStatsZS.NoxZS then
         panel3 = vgui.Create( "DPanel", sheet )
         sheet:AddSheet( "ZS Stats", panel3, "icon16/user_orange.png" )
     else
@@ -73,7 +74,7 @@ function nStatsZSClient(plyr)
 
     HumanStat("Zombies Killed", "HStats.ZombiesKilled")
     HumanStat("Zombies Killed Assists", "HStats.ZombiesKilledAssists")
-    if nStats.ZS.NoxZS then
+    if nStatsZS.NoxZS then
         HumanStat("Zombies Killed Headshots", "HStats.ZombiesKilledHeadshot")
     end
     HumanStat("Crows Killed", "HStats.CrowsKilled")
@@ -95,7 +96,7 @@ function nStatsZSClient(plyr)
     -- ZS STATS --
     --------------
 
-    if nStats.ZS.NoxZS then
+    if nStatsZS.NoxZS then
         local check = vgui.Create("DLabel", frame) check:SetText(plyr:Name().."'s Stats ") check:SetFont("ZSHUDFontSmall") check:SizeToContents() check:SetTextColor(COLOR_CYAN) list3:AddItem(check)
 
         local check = vgui.Create("DLabel", frame)
